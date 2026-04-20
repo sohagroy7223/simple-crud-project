@@ -27,10 +27,16 @@ async function run() {
   try {
     await client.connect();
 
+    const usersDB = client.db("usersDB");
+    const myCollation = usersDB.collection("users");
+
     // save this users data to the database (via server)
-    app.post("/users", (req, res) => {
+
+    app.post("/users", async (req, res) => {
       const newUser = req.body;
       console.log("user details", newUser);
+      const result = await myCollation.insertOne(newUser);
+      res.send(result);
     });
 
     await client.db("admin").command({ ping: 1 });
