@@ -30,6 +30,12 @@ async function run() {
     const usersDB = client.db("usersDB");
     const myCollation = usersDB.collection("users");
 
+    app.get("/users", async (req, res) => {
+      const cursor = myCollation.find();
+      const result = await cursor.toArray();
+      res.send(result);
+    });
+
     // save this users data to the database (via server)
 
     app.post("/users", async (req, res) => {
