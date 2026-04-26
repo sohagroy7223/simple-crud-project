@@ -1,11 +1,14 @@
 import React from "react";
+import { use } from "react";
+import SingleUser from "./SingleUser";
 
-const Users = () => {
+const Users = ({ userPromise }) => {
+  const users = use(userPromise);
   const handelSubmit = (e) => {
     e.preventDefault();
     const name = e.target.name.value;
     const email = e.target.email.value;
-    console.log(name, email);
+    // console.log(name, email);
     const newUser = { name, email };
 
     fetch("http://localhost:3000/users", {
@@ -35,6 +38,12 @@ const Users = () => {
         <input type="submit" value="submit" />
         <br />
       </form>
+      <div>
+        <h3>all user is here {users.length}</h3>
+        {users.map((user) => (
+          <SingleUser key={user._id} user={user}></SingleUser>
+        ))}
+      </div>
     </div>
   );
 };
