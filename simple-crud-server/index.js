@@ -36,6 +36,12 @@ async function run() {
       res.send(result);
     });
 
+    // delete from database
+    app.delete("/users/:id", (req, res) => {
+      console.log(req.params.id);
+      console.log("delete user from database");
+    });
+
     // save this users data to the database (via server)
 
     app.post("/users", async (req, res) => {

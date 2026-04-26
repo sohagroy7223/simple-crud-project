@@ -25,6 +25,7 @@ const Users = ({ userPromise }) => {
       .then((res) => res.json())
       .then((data) => {
         console.log("after saving user", data);
+
         if (data.insertedId) {
           newUser._id = data.insertedId;
           const newUsers = [...users, newUser];
