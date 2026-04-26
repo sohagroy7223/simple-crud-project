@@ -1,11 +1,15 @@
 import React from "react";
 import { use } from "react";
 import SingleUser from "./SingleUser";
+import { useState } from "react";
 
 const Users = ({ userPromise }) => {
-  const users = use(userPromise);
+  const initialUsers = use(userPromise);
+  const [users, setUsers] = useState(initialUsers);
+
   const handelSubmit = (e) => {
     e.preventDefault();
+
     const name = e.target.name.value;
     const email = e.target.email.value;
     // console.log(name, email);
@@ -22,6 +26,9 @@ const Users = ({ userPromise }) => {
       .then((data) => {
         console.log("after saving user", data);
         if (data.insertedId) {
+          newUser._id = data.insertedId;
+          const newUsers = [...users, newUser];
+          setUsers(newUsers);
           alert("user insertedId successfully");
           e.target.reset();
         }
