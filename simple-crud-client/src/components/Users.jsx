@@ -1,6 +1,5 @@
 import React from "react";
 import { use } from "react";
-import SingleUser from "./SingleUser";
 import { useState } from "react";
 
 const Users = ({ userPromise }) => {
@@ -36,6 +35,22 @@ const Users = ({ userPromise }) => {
       });
   };
 
+  const handelDeleteUser = (id) => {
+    console.log("user delete ", id);
+    fetch(`http://localhost:3000/users/${id}`, {
+      method: "DELETE",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("after delete", data);
+        if (data.deletedCount) {
+          alert("user delete successfully");
+          const remainingUser = users.filter((user) => user._id !== id);
+          setUsers(remainingUser);
+        }
+      });
+  };
+
   return (
     <div>
       <form onSubmit={handelSubmit}>
@@ -49,7 +64,10 @@ const Users = ({ userPromise }) => {
       <div>
         <h3>all user is here {users.length}</h3>
         {users.map((user) => (
-          <SingleUser key={user._id} user={user}></SingleUser>
+          <p key={user._id}>
+            {user.name}: {user.email}
+            <button onClick={() => handelDeleteUser(user._id)}>x</button>
+          </p>
         ))}
       </div>
     </div>

@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-const { MongoClient, ServerApiVersion } = require("mongodb");
+const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
 const cors = require("cors");
 const port = process.env.PORT || 3000;
 
@@ -37,9 +37,13 @@ async function run() {
     });
 
     // delete from database
-    app.delete("/users/:id", (req, res) => {
-      console.log(req.params.id);
-      console.log("delete user from database");
+    app.delete("/users/:id", async (req, res) => {
+      // console.log(req.params.id);
+      // console.log("delete user from database");
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) };
+      const result = await myCollation.deleteOne(query);
+      res.send(result);
     });
 
     // save this users data to the database (via server)
