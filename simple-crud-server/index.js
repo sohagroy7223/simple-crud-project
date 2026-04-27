@@ -38,7 +38,7 @@ async function run() {
 
     app.get("/users/:id", async (req, res) => {
       const id = req.params.id;
-      console.log("get id", id);
+      console.log("need user with id", id);
       const query = { _id: new ObjectId(id) };
       const result = await myCollation.findOne(query);
       res.send(result);
