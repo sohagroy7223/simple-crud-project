@@ -44,6 +44,22 @@ async function run() {
       res.send(result);
     });
 
+    app.patch("/users/:id", async (req, res) => {
+      const updateUser = req.body;
+      const id = req.params.id;
+      console.log("to update", id, updateUser);
+      const query = { _id: new ObjectId(id) };
+      const update = {
+        $set: {
+          name: updateUser.name,
+          email: updateUser.email,
+        },
+      };
+      const option = {};
+      const result = await myCollation.updateOne(query, update, option);
+      res.send(result);
+    });
+
     // delete from database
     app.delete("/users/:id", async (req, res) => {
       // console.log(req.params.id);
