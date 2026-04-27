@@ -13,6 +13,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/users/:id",
+    loader: ({ params }) => fetch(`http://localhost:3000/users/${params.id}`),
     Component: UserDetails,
   },
 ]);
