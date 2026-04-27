@@ -36,7 +36,7 @@ const Users = ({ userPromise }) => {
   };
 
   const handelDeleteUser = (id) => {
-    console.log("user delete ", id);
+    // console.log("user delete ", id);
     fetch(`http://localhost:3000/users/${id}`, {
       method: "DELETE",
     })
@@ -54,9 +54,15 @@ const Users = ({ userPromise }) => {
   return (
     <div>
       <form onSubmit={handelSubmit}>
-        <input type="text" name="name" placeholder="Enter Your Name" />
+        <input type="text" name="name" required placeholder="Enter Your Name" />
         <br />
-        <input type="email" name="email" placeholder="Your Email" id="" />
+        <input
+          type="email"
+          name="email"
+          required
+          placeholder="Your Email"
+          id=""
+        />
         <br />
         <input type="submit" value="submit" />
         <br />
